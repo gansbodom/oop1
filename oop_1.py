@@ -168,3 +168,4 @@ avg_student_grade(students, 'Python')  # Считаем среднюю оцен�
 
 lecturers = [lecturer1, lecturer2]  # Список преподавателей
 avg_lecturer_rate(lecturers, 'Python')  # Считаем среднюю оценку преподавателей по курсу Python
+
