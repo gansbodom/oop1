@@ -38,8 +38,7 @@ def print_shop_list(shop_list):
 
 def create_shop_list():
     person_count = int(input('Введите количество человек: '))
-    dishes = input('Введите блюда в расчете на одного человека (через запятую): ') \
-        .lower().split(', ')
+    dishes = input('Введите блюда в расчете на одного человека (через запятую): ').split(', ')
     shop_list = get_shop_list_by_dishes(dishes, person_count)
     print_shop_list(shop_list)
 
