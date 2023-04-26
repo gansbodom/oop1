@@ -15,7 +15,7 @@ files = [TextFile('1.txt'),
 
 files.sort(key=lambda x: x.row_count)
 
-with open('all.txt', 'w') as target:
+with open('all.txt', 'w+') as target:
     for i in files:
         target.write(f'{i.name} \n')
         target.write(f'{i.row_count} \n')
