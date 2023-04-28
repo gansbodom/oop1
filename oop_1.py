@@ -7,17 +7,17 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+    def avg_rate(self):
+        all_grades = sum(self.grades.values(), [])
+        average_rating = round((sum(all_grades) / len(all_grades)), 1)
+        return average_rating
+
     def __str__(self):
         """
         Перезагружаем метод __str__ и добавляем подсчёт средней оценки
         """
-        all_grades = []
-        for c_grades in self.grades.values():
-            for grade in c_grades:
-                all_grades.append(grade)
-        self.average_rating = round((sum(all_grades) / len(all_grades)), 1)
         return (f'Имя:{self.name}\nФамилия: {self.surname}\n'
-                f'Средняя оценка за домашние задания: {self.average_rating}\n'
+                f'Средняя оценка за домашние задания: {self.avg_rate()}\n'
                 f'Курсы в процессе изучения: {", ".join(self.courses_in_progress)}\n'
                 f'Завершённые курсы:{", ".join(self.finished_courses)}')
 
@@ -32,6 +32,12 @@ class Student:
             else:
                 lecturer.grades[course] = [grade]
 
+    def __gt__(self, other):
+        return self.avg_rate() > other.avg_rate()
+
+    def __lt__(self, other):
+        return self.avg_rate() < other.avg_rate()
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -44,19 +50,26 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
+        # self.average_rating = None
+
+    def avg_rate(self):
+        all_grades = sum(self.grades.values(), [])
+        average_rating = round((sum(all_grades) / len(all_grades)), 1)
+        return average_rating
 
     def __str__(self):
         """
         Перезагружаем метод __str__ и добавляем подсчёт средней оценки
         """
-        all_grades = []
-        for c_grades in self.grades.values():
-            for grade in c_grades:
-                all_grades.append(grade)
-        self.average_rating = round((sum(all_grades) / len(all_grades)), 1)
         return (f'Имя: {self.name}\n'
                 f'Фамилия:{self.surname}\n'
-                f'Средняя оценка за лекции:{self.average_rating}')
+                f'Средняя оценка за лекции:{self.avg_rate()}')
+
+    def __gt__(self, other):
+        return self.avg_rate() > other.avg_rate()
+
+    def __lt__(self, other):
+        return self.avg_rate() < other.avg_rate()
 
 
 class Reviewer(Mentor):
@@ -156,16 +169,16 @@ print(lecturer1)
 print(reviewer1)
 
 # Сравниваем судентов по средней оценке через оператор сравнения:
-if student2.average_rating > student1.average_rating:
+if student2 > student1:
     print('Рейтинг студента №2 выше, чем у студента №1')
 
 # Сравниваем лекторов по средней оценке через оператор сравнения:
-if lecturer1.average_rating < lecturer2.average_rating:
+if lecturer1 < lecturer2 :
     print('Рейтинг лектора №1 ниже, чем у лектора №2')
+
 
 students = [student1, student2]  # Список студентов
 avg_student_grade(students, 'Python')  # Считаем среднюю оценку студентов по курсу Python
 
 lecturers = [lecturer1, lecturer2]  # Список преподавателей
 avg_lecturer_rate(lecturers, 'Python')  # Считаем среднюю оценку преподавателей по курсу Python
-

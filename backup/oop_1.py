@@ -32,6 +32,12 @@ class Student:
             else:
                 lecturer.grades[course] = [grade]
 
+    def __gt__(self, other):
+        return self.average_rating > other.average_rating
+
+    def __lt__(self, other):
+        return self.average_rating < other.average_rating
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -57,6 +63,12 @@ class Lecturer(Mentor):
         return (f'Имя: {self.name}\n'
                 f'Фамилия:{self.surname}\n'
                 f'Средняя оценка за лекции:{self.average_rating}')
+
+    def __gt__(self, other):
+        return self.average_rating > other.average_rating
+
+    def __lt__(self, other):
+        return self.average_rating < other.average_rating
 
 
 class Reviewer(Mentor):
@@ -156,11 +168,11 @@ print(lecturer1)
 print(reviewer1)
 
 # Сравниваем судентов по средней оценке через оператор сравнения:
-if student2.average_rating > student1.average_rating:
+if student2 > student1:
     print('Рейтинг студента №2 выше, чем у студента №1')
 
 # Сравниваем лекторов по средней оценке через оператор сравнения:
-if lecturer1.average_rating < lecturer2.average_rating:
+if lecturer1 < lecturer2 :
     print('Рейтинг лектора №1 ниже, чем у лектора №2')
 
 students = [student1, student2]  # Список студентов
