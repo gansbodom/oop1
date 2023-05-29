@@ -16,7 +16,7 @@ class YaUploader:
         r = requests.get(upload_url, headers=headers, params=params)
         print(r.json())
         href = r.json()["href"]
-        responce = requests.put(href, data=open(self.file_path, 'rb'))
+        requests.put(href, data=open(self.file_path, 'rb'))
 
 
 if __name__ == '__main__':
