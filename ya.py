@@ -10,17 +10,16 @@ class YaUploader:
         # Тут ваша логика
         # Функция может ничего не возвращать
         self.file_path = file_path
-        upload_url = 'https://cloud-api.yandex.net/v1/disk/resourses/upload'
-        headers = {'Content-Type': 'application/json', 'Autorization': f'OAuth {self.token}'}
-        params = {"path": f"{self.file_path}"}
+        upload_url = "https://cloud-api.yandex.net/v1/disk/resources/upload"
+        headers = {"Content-Type": "application/json", "Authorization": self.token}
+        params = {"path": f"test/{path_to_file}"}
         r = requests.get(upload_url, headers=headers, params=params)
-        print(r.json())
         href = r.json()["href"]
         requests.put(href, data=open(self.file_path, 'rb'))
 
 
 if __name__ == '__main__':
     # Получить путь к загружаемому файлу и токен от пользователя
-    path_to_file = os.path.abspath('/home/bn/python/PycharmProjects/oop1/test.txt')
-    uploader = YaUploader('y0_AgAAAABR2QGiAADLWwAAAADjyvy_4jNywNthRsO5PHTsIPOSpToCxrw')
-    result = uploader.upload(path_to_file)
+    path_to_file = 'test.txt'
+    uploader = YaUploader('XXXXXXX')
+    uploader.upload(os.path.abspath(path_to_file))
